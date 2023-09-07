@@ -1,0 +1,37 @@
+version: '3.5'
+
+services:
+  expenser:
+    image: $IMAGEID:$VERSION
+    container_name: ${COMPOSE_PROJECT_NAME}
+    hostname: ${COMPOSE_PROJECT_NAME}
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: $TARGET
+
+    stdin_open: true
+    tty: true
+
+    devices:
+      - /dev/fuse:/dev/fuse:rwm
+    security_opt:
+      - apparmor:unconfined
+    cap_add:
+      - ALL
+
+    working_dir: /app
+    volumes:
+      - ./${BUILDDIR}/init/:/init/:ro
+      - ./${BUILDDIR}/config/${SA_KEYFILE}:/.${SA_KEYFILE}:ro
+      - ./src:/app
+      - ./${INPUT_DIR}:/${INPUT_DIR}:shared
+      - ./${DATA_DIR}:/${DATA_DIR}:shared
+    
+    stop_grace_period: 5s
+    stop_signal: SIGSTOP
+
+
+      
