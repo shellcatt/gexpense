@@ -6,7 +6,7 @@
 ## Install
 
 - `cp .env.example .env`
-- edit `MY-*` & `JOHN DOE` values
+- edit `MY-*` values
 
 
 ### Run docker container

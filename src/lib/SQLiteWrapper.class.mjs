@@ -8,7 +8,9 @@ const FIELDS = new Map(Object.entries({
     'size':     'INTEGER',
     'amount':   'INTEGER',
     'date':     'INTEGER',
-    'body':     'TEXT'
+    'body':     'TEXT',
+    'scanned':  "TIMESTAMP NOT NULL DEFAULT (datetime('now','localtime'))",
+    'edited':   "BOOLEAN NOT NULL CHECK (edited IN (0, 1))"
 }));
 ///TODO: validate destructured data in methods for existance in FIELDS 
 
@@ -32,7 +34,8 @@ export default class SQLiteWrapper {
                     ${flds}
                 )
             `.trim();
-
+            // console.log({createTableSQL});
+            
             this.db.run(createTableSQL, (err) => {
                 if (err) {
                     console.error('Error creating table:', err);
@@ -52,7 +55,7 @@ export default class SQLiteWrapper {
             const createIndexSQL = `
                 CREATE INDEX IF NOT EXISTS ${idx} ON ${DB_TABLE} (${flds})
             `.trim();
-
+            // console.log({createIndexSQL});
             this.db.run(createIndexSQL, (err) => {
                 if (err) {
                     console.error('Error creating index:', err);
@@ -85,21 +88,23 @@ export default class SQLiteWrapper {
 
     async insertRow(data) {
         return new Promise((resolve, reject) => {
+            // Counting on Sqlite3 to create this automatically
+            // data['scanned'] = moment().unix();
             try {
                 const flds = Object.keys(data).join(', ');
-                const phs = Array.from(Object.keys(data).length).fill('?').join(', ');
+                const phs = Array.from({ length: Object.keys(data).length }, () => '?').join(', ');
 
                 const insertSQL = `
                     INSERT INTO ${DB_TABLE} (${flds}) VALUES (${phs})
                 `.trim();
-                console.log({insertSQL});
-                this.db.run(insertSQL, Object.values(data), (err) => {
+                // console.log({insertSQL});
+                this.db.run(insertSQL, Object.values(data), function(err) {
                     if (err) {
                         console.error('Error inserting row:', err);
                         reject(err);
                     } else {
                         console.log('Row inserted.');
-                        resolve();
+                        resolve({ lastID: this.lastID });
                     }
                 });
             } catch (e) {
@@ -116,8 +121,8 @@ export default class SQLiteWrapper {
             let selectSQL = `
                 SELECT * FROM ${DB_TABLE} WHERE ${where}
             `.trim();
-
-            this.db.get(selectSQL, Object.values(data), (err, rows) => {
+            // console.log({selectSQL}, Object.values(data));
+            this.db.all(selectSQL, Object.values(data), (err, rows) => {
                 if (err) {
                     console.error('Error checking row existence:', err);
                     reject(err);

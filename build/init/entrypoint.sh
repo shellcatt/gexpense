@@ -6,10 +6,17 @@ if [ ! -f "${GOOGLE_APPLICATION_CREDENTIALS}" ]; then
  exit 1
 fi
 
-echo 'initializing...'
+echo "Initializing target [$TARGET]..."
+npm install
 
-npm install 
+echo 'Lazy awaits 10 secs...'
+sleep 10
 
+echo 'Starting scan...'
+npm start
 
-# Still wait
-tail -f /dev/null
+echo 'Done.'
+if [ $TARGET == "dev" ]; then
+    echo 'press Ctrl+C to exit app'
+    tail -f /dev/null
+fi

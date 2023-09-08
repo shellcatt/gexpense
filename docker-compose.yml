@@ -28,9 +28,10 @@ services:
       - ./${BUILDDIR}/config/${SA_KEYFILE}:/.${SA_KEYFILE}:ro
       - ./src:/app
       - ./${INPUT_DIR}:/${INPUT_DIR}:shared
+      - ./${OUTPUT_DIR}:/${OUTPUT_DIR}:shared
       - ./${DATA_DIR}:/${DATA_DIR}:shared
     
-    stop_grace_period: 5s
+    stop_grace_period: 1s
     stop_signal: SIGSTOP
 
 

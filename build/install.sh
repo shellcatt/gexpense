@@ -12,3 +12,5 @@ gcloud secrets versions access latest --secret="${SECRET_SA_KEY}" > "${CONFIG_DI
     && echo '[OK] Stored SA JSON key file'
 
 [ -d "$INPUT_DIR" ] || mkdir -p $INPUT_DIR
+[ -d "$OUTPUT_DIR" ] || mkdir -p $OUTPUT_DIR
+[ -d "$DATA_DIR" ] || mkdir -p $DATA_DIR

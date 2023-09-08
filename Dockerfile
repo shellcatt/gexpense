@@ -1,7 +1,7 @@
 FROM node:18-bullseye-slim AS base
 
 RUN apt-get -y update
-RUN apt-get -y install curl unzip 
+RUN apt-get -y install curl unzip jq
 
 # Install NPM 
 RUN curl -L https://www.npmjs.com/install.sh | sh
@@ -20,6 +20,10 @@ RUN curl https://gist.githubusercontent.com/wstierhout/df31e50420c598f519cb3c4be
 USER node
 
 FROM base AS prod
+USER node
+
 # ENTRYPOINT [ "tail", "-f", "/dev/null" ]
+
+FROM prod AS default
 
 
