@@ -19,6 +19,7 @@
 ### Run 
 - `make`
 
+---
 
 [gexpense.webm](https://github.com/shellcatt/gexpense/assets/1937010/24d2a776-60e6-43d8-83d6-0b5ef831493c)
 
