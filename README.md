@@ -22,7 +22,7 @@ This project offers an efficient solution for processing receipts using Document
 - Docker CE (`docker compose`)
 - Google Gloud Platform (`gcloud`)
 - Google <a href="#">Document AI API</a> enabled 
-- 
+
 <!-- TODO: Explain processor & service account setup -->
 
 
