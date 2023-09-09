@@ -1,6 +1,6 @@
 {
   "name": "gexpense",
-  "version": "0.6.0",
+  "version": "0.7.1",
   "description": "Google Document AI / Expense processor",
   "main": "index.js",
   "type": "module",

@@ -7,7 +7,7 @@ const FIELDS = new Map(Object.entries({
     'file':     'TEXT',
     'size':     'INTEGER',
     'amount':   'INTEGER',
-    'date':     'INTEGER',
+    'date':     'TIMESTAMP',
     'body':     'TEXT',
     'scanned':  "TIMESTAMP NOT NULL DEFAULT (datetime('now','localtime'))",
     'edited':   "BOOLEAN NOT NULL CHECK (edited IN (0, 1))"

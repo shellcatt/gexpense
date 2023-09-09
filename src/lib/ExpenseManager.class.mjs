@@ -100,7 +100,7 @@ export default class ExpenseManager {
         const amount = autoCorrect(entryAmount?.normalizedValue?.text) || 0; ///TODO: safe `structuredValue`
         const date = autoCorrect(entryDate?.mentionText) || 0; ///TODO: optimize for now, not 0
         // const time = entryTime?.mentionText || 0; // normalizedValue?.text
-        const datetime = moment(date, this.config.dateFormat).unix();// + moment(time).unix();
+        const datetime = moment(date, this.config.dateFormat).toISOString();// + moment(time).unix();
 
         res.entry = {
           file: file,
