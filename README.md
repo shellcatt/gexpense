@@ -5,7 +5,8 @@
 - SQLite3
 
 ## Pre-requisits
-- Docker (`docker compose` runs the service on a local web ports)
+- GNU Make (`make`)
+- Docker CE (`docker compose`)
 - Google Gloud Platform (`gcloud`)
 <!-- TODO: Explain processor & service account setup -->
 
