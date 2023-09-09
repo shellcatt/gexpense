@@ -1,0 +1,39 @@
+version: '3.5'
+
+services:
+  expenser:
+    image: $IMAGEID:$VERSION
+    container_name: ${COMPOSE_PROJECT_NAME}
+    hostname: ${COMPOSE_PROJECT_NAME}
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: $TARGET
+
+    stdin_open: true
+    tty: true
+
+    devices:
+      - /dev/fuse:/dev/fuse:rwm
+    security_opt:
+      - apparmor:unconfined
+    cap_add:
+      - ALL
+
+    working_dir: /app
+    volumes:
+      - ./${BUILDDIR}/init/:/init/:ro
+      - ./${BUILDDIR}/.gcloud:/etc/gcloud:ro ##TODO: always sync this with .gitignore 
+      - ./src:/app
+      - ./${DATA_DIR}:/${DATA_DIR}:shared
+      ## Uncomment to separate data dir from input & output dirs
+      # - ./${INPUT_DIR}:/${INPUT_DIR}:shared
+      # - ./${OUTPUT_DIR}:/${OUTPUT_DIR}:shared
+    
+    stop_grace_period: 1s
+    stop_signal: SIGSTOP
+
+
+      

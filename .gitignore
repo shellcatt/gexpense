@@ -1,3 +1,10 @@
-.env*
+.directory
+.vscode
+
 node_modules/
-documents/
+
+.env
+**/.gcloud/
+**/.aws/
+
+/data/
