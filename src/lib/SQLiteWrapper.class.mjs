@@ -19,9 +19,9 @@ export default class SQLiteWrapper {
         this.dbPath = dbPath;
         this.db = new sqlite3.Database(this.dbPath, (err) => {
             if (err) {
-                console.error('Error connecting to SQLite database:', err);
+                console.error('DB: Error connecting to SQLite database:', err);
             } else {
-                console.log('Connected to SQLite database.');
+                console.log('DB: Connected to SQLite database.');
             }
         });
     }
@@ -38,10 +38,10 @@ export default class SQLiteWrapper {
             
             this.db.run(createTableSQL, (err) => {
                 if (err) {
-                    console.error('Error creating table:', err);
+                    console.error('DB: Error creating table:', err);
                     reject(err);
                 } else {
-                    console.log('Table initialized.');
+                    console.log('DB: Table initialized.');
                     resolve();
                 }
             });
@@ -61,7 +61,7 @@ export default class SQLiteWrapper {
                     console.error('Error creating index:', err);
                     reject(err);
                 } else {
-                    console.log('Index created.');
+                    console.log('DB: Index created.');
                     resolve();
                 }
             });
@@ -77,7 +77,7 @@ export default class SQLiteWrapper {
 
             this.db.get(selectSQL, Object.values(data), (err, row) => {
                 if (err) {
-                    console.error('Error checking row existence:', err);
+                    console.error('DB: Error checking row existence:', err);
                     reject(err);
                 } else {
                     resolve(row.count > 0);
@@ -103,7 +103,7 @@ export default class SQLiteWrapper {
                         console.error('Error inserting row:', err);
                         reject(err);
                     } else {
-                        console.log('Row inserted.');
+                        console.log('DB: Row inserted.');
                         resolve({ lastID: this.lastID });
                     }
                 });

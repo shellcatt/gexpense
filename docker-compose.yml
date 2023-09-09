@@ -25,11 +25,12 @@ services:
     working_dir: /app
     volumes:
       - ./${BUILDDIR}/init/:/init/:ro
-      - ./${BUILDDIR}/config/${SA_KEYFILE}:/.${SA_KEYFILE}:ro
+      - ./${BUILDDIR}/.gcloud:/etc/gcloud:ro ##TODO: always sync this with .gitignore 
       - ./src:/app
-      - ./${INPUT_DIR}:/${INPUT_DIR}:shared
-      - ./${OUTPUT_DIR}:/${OUTPUT_DIR}:shared
       - ./${DATA_DIR}:/${DATA_DIR}:shared
+      ## Uncomment to separate data dir from input & output dirs
+      # - ./${INPUT_DIR}:/${INPUT_DIR}:shared
+      # - ./${OUTPUT_DIR}:/${OUTPUT_DIR}:shared
     
     stop_grace_period: 1s
     stop_signal: SIGSTOP

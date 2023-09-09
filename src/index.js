@@ -24,7 +24,6 @@ async function main(/** projectId, location, processorId, filePath */) {
 
   for (let file of await fs.readdir(`/${INPUT_DIR}`)) {
     try {
-      // console.log({file});
       let mimeType = mime.lookup(file);
       if (MIME_TYPE == mimeType) {
         const entry = await backend.processExpense(file);

@@ -23,4 +23,4 @@ clean: stop
 
 ##TODO: move to other targeted section
 stop:
-	docker compose down --timeout=0
+	docker compose down

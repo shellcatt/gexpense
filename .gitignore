@@ -1,5 +1,9 @@
-.env
+.directory
+
 node_modules/
-documents/
-input/
-data/
+
+.env
+**/.gcloud/
+**/.aws/
+
+/data/

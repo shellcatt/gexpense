@@ -87,7 +87,7 @@ export default class ExpenseManager {
               return acc.replace(mistake, correct)
             }
             return acc;
-          }, str);
+          }, str).trim();
         }
 
         const amount = autoCorrect(entryAmount?.normalizedValue?.text) || 0; ///TODO: safe `structuredValue`
@@ -115,7 +115,8 @@ export default class ExpenseManager {
         // console.log({res});
 
         if (res.entry?.length > 1) {
-          res.msg = (`${res.entry.length} Possible duplicates for ${date} (${amount})`);
+          res.msg = (`Found ${res.entry.length-1} possible duplicates for ${date} (${amount})`);
+          console.log(res.entry);
           return reject(res);
         }
       } catch (e) {
