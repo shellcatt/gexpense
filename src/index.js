@@ -32,7 +32,7 @@ async function main(/** projectId, location, processorId, filePath */) {
     } catch (e) {
       console.error('E: ', e?.msg || e?.message || 'Unknown x(')
     }
-    await sleep(1000);
+    await sleep(500);
   }
 
   // ----------------------------------------

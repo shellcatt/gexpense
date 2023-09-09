@@ -5,6 +5,8 @@ import fs from 'fs/promises';
 import mime from 'mime-types';
 import path from 'path';
 
+const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 export default class ExpenseScanner {
   constructor({ projectId, location, processorId, target }) {
     this.config = { projectId, location, processorId, target };
@@ -22,6 +24,7 @@ export default class ExpenseScanner {
 
     if (this.config.target !== 'prod') {
       console.log('Mocked response by pre-existing', {outputFile});
+      await sleep(1000);
     }
     
     // The full resource name of the processor, e.g.:

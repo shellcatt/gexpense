@@ -5,6 +5,8 @@ import moment from 'moment';
 import fs from 'fs/promises';
 import path, { resolve } from 'path';
 
+import { loading } from 'cli-loading-animation';
+import spinners from 'cli-spinners';
 
 export default class ExpenseManager {
   constructor(config) {
@@ -12,6 +14,9 @@ export default class ExpenseManager {
 
     this.db = new SQLiteWrapper(config.dbPath);
     this.scanner = new ExpenseScanner(config);
+
+    let spinner = config.target === 'prod' ? 'bouncingBar' : 'binary';
+    this.loading = loading('Processing..', { clearOnEnd: false, spinner: spinners[spinner] });
   }
 
   async init() {
@@ -59,8 +64,10 @@ export default class ExpenseManager {
       // Process
       console.log(`Sending ${fullInputPath} for scanning...`);
       try {
+        this.loading.start();
         const entities = await this.scanner.processSingleDocument(fullInputPath, fullOutputPath);
         res.msg = 'Expense scanned.';
+        this.loading.stop();
         // console.log({ entities });
         if (!entities) {
           res.msg = 'No entities?';
@@ -116,7 +123,7 @@ export default class ExpenseManager {
 
         if (res.entry?.length > 1) {
           res.msg = (`Found ${res.entry.length-1} possible duplicates for ${date} (${amount})`);
-          console.log(res.entry);
+          // console.log(res.entry);
           return reject(res);
         }
       } catch (e) {

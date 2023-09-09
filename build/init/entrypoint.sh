@@ -17,6 +17,8 @@ echo -e "Initializing target [$TARGET_COLORED]..."
 echo 'Lazy awaits 10 secs...'
 sleep 10
 
+echo '----------'
+
 echo 'Starting scan...'
 npm start
 
