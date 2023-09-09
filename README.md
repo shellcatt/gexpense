@@ -1,5 +1,7 @@
-# Google DocumentAI Expense processor (preview)
-[![Video](https://img.youtube.com/vi/iMyxBJkGrq0/maxresdefault.jpg)](https://www.youtube.com/watch?v=iMyxBJkGrq0)
+# Google DocumentAI Expense processor 
+
+[gexpense.webm](https://github.com/shellcatt/gexpense/assets/1937010/24d2a776-60e6-43d8-83d6-0b5ef831493c)
+(<a href="https://youtu.be/iMyxBJkGrq0" target="_blank">YouTube</a>)
 
 ## Tech stack
 - NodeJS
